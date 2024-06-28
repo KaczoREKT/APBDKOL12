@@ -29,6 +29,10 @@ namespace KOL1APP.Controllers
         [HttpPost]
         public async Task<IActionResult> AddClient(AddClientRequest request)
         {
+            
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+            
             if (!await _clientsRepository.DoesCarExist(request.CarId))
                 return NotFound($"Car with given ID - {request.CarId} doesn't exist");
 
